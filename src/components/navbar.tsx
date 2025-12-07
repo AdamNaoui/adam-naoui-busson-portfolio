@@ -1,5 +1,6 @@
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { ModeToggle } from "@/components/mode-toggle";
+import { LocaleToggle } from "@/components/locale-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -54,6 +55,16 @@ export default function Navbar() {
             </TooltipTrigger>
             <TooltipContent>
               <p>Download Resume</p>
+            </TooltipContent>
+          </Tooltip>
+        </DockIcon>
+        <DockIcon>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <LocaleToggle />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Language</p>
             </TooltipContent>
           </Tooltip>
         </DockIcon>

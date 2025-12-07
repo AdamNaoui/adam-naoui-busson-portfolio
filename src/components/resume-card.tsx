@@ -29,6 +29,17 @@ export const ResumeCard = ({ logoUrl, altText, title, subtitle, href, badges, pe
     }
   };
 
+  // Convert description to bullet points by splitting on sentences
+  const getBulletPoints = (text: string) => {
+    // Split by periods followed by space and capital letter, keeping the sentence structure
+    const sentences = text
+      .split(/\.\s+(?=[A-Z])/)
+      .map((sentence) => sentence.trim())
+      .filter((sentence) => sentence.length > 0)
+      .map((sentence) => (sentence.endsWith(".") ? sentence : sentence + "."));
+    return sentences;
+  };
+
   return (
     <Link href={href || "#"} className="block cursor-pointer" onClick={handleClick}>
       <Card className="flex p-2">
@@ -70,9 +81,13 @@ export const ResumeCard = ({ logoUrl, altText, title, subtitle, href, badges, pe
                 duration: 0.7,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mt-2 text-xs sm:text-sm"
+              className="mt-2 text-xs sm:text-sm px-6"
             >
-              {description}
+              <ul className="list-disc space-y-1 text-muted-foreground">
+                {getBulletPoints(description).map((point, index) => (
+                  <li key={index}>{point}</li>
+                ))}
+              </ul>
             </motion.div>
           )}
         </div>
