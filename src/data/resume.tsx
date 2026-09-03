@@ -11,52 +11,56 @@ export const DATA = {
   },
   locationLink: "https://www.google.com/maps/place/montreal",
   description: {
-    en: "Software Engineer with full-stack expertise in modern web technologies and cloud platforms.",
-    fr: "Ingénieur logiciel avec une expertise full-stack dans les technologies web modernes et les plateformes cloud.",
+    en: "I build payment systems at Morgan Stanley and run two sports products in Montreal, Call Next and Next Leagz.",
+    fr: "Je construis des systèmes de paiement chez Morgan Stanley et je dirige deux produits sportifs à Montréal, Call Next et Next Leagz.",
+  },
+  roleLine: {
+    en: "Software Engineer II at Morgan Stanley. Founder of Call Next and Next Leagz.",
+    fr: "Ingénieur Logiciel II chez Morgan Stanley. Fondateur de Call Next et Next Leagz.",
   },
   summary: {
-    en: "I am a Software Engineer with a Computer Engineering from Polytechnique School of Montreal. \n I have experience building and optimizing full-stack applications using modern frameworks like Angular, React, and Spring Boot, with a strong focus on cloud platforms (Azure, AWS) and CI/CD practices. I thrive in fast-paced environments where I can deliver impactful solutions and continuously improve system performance.",
-    fr: "Je suis un Ingénieur Logiciel diplômé en Génie Informatique de l'École Polytechnique de Montréal. \n J'ai de l'expérience dans la construction et l'optimisation d'applications full-stack utilisant des frameworks modernes comme Angular, React et Spring Boot, avec un focus sur les plateformes cloud (Azure, AWS) et les pratiques CI/CD. Je m'épanouis dans des environnements dynamiques où je peux livrer des solutions impactantes et améliorer continuellement les performances des systèmes.",
+    en: "I am a software engineer from Polytechnique Montreal. At Morgan Stanley I own screens on an internal payments and trades platform, from an Angular front end down to Spring Boot APIs and an Azure and Kubernetes pipeline.\nOutside of that I found and run Call Next and Next Leagz: a pickup-sports app and a league-management platform that share one ecosystem across Montreal.",
+    fr: "Je suis ingénieur logiciel, diplômé de Polytechnique Montréal. Chez Morgan Stanley, je suis responsable d'écrans sur une plateforme interne de paiements et de transactions, du front-end Angular jusqu'aux APIs Spring Boot et à un pipeline Azure et Kubernetes.\nEn parallèle, je fonde et dirige Call Next et Next Leagz : une application de sport libre et une plateforme de gestion de ligues qui partagent un même écosystème à travers Montréal.",
   },
   avatarUrl: "/me.png",
   skills: {
     languages: [
-      { name: "TypeScript", iconUrl: "https://cdn-icons-png.flaticon.com/512/5968/5968381.png", docUrl: "https://www.typescriptlang.org/docs/" },
-      { name: "JavaScript", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1024px-Unofficial_JavaScript_logo_2.svg.png", docUrl: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
-      { name: "Python", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png", docUrl: "https://docs.python.org/3/" },
-      { name: "Java", iconUrl: "https://static.vecteezy.com/system/resources/thumbnails/048/332/150/small_2x/java-programming-language-java-logo-free-png.png", docUrl: "https://docs.oracle.com/en/java/" },
+      { name: "TypeScript", iconUrl: "/assets/skills/typescript.svg", docUrl: "https://www.typescriptlang.org/docs/" },
+      { name: "JavaScript", iconUrl: "/assets/skills/javascript.svg", docUrl: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+      { name: "Python", iconUrl: "/assets/skills/python.svg", docUrl: "https://docs.python.org/3/" },
+      { name: "Java", iconUrl: "/assets/skills/java.svg", docUrl: "https://docs.oracle.com/en/java/" },
     ],
     frontend: [
-      { name: "React", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png", docUrl: "https://react.dev/" },
-      { name: "Expo", iconUrl: "https://cdn.creazilla.com/icons/3243981/expo-icon-lg.png", docUrl: "https://docs.expo.dev/" },
-      { name: "Angular", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Angular_gradient_logo.png/1024px-Angular_gradient_logo.png", docUrl: "https://angular.dev/" },
-      { name: "Next.js", iconUrl: "https://cdn.worldvectorlogo.com/logos/next-js.svg", docUrl: "https://nextjs.org/docs" },
+      { name: "React", iconUrl: "/assets/skills/react.svg", docUrl: "https://react.dev/" },
+      { name: "Expo", iconUrl: "/assets/skills/expo.svg", docUrl: "https://docs.expo.dev/" },
+      { name: "Angular", iconUrl: "/assets/skills/angular.svg", docUrl: "https://angular.dev/" },
+      { name: "Next.js", iconUrl: "/assets/skills/nextjs.svg", docUrl: "https://nextjs.org/docs" },
     ],
     backend: [
-      { name: "Node.js", iconUrl: "https://plugins.jetbrains.com/files/6098/899654/icon/default.png", docUrl: "https://nodejs.org/docs" },
-      { name: "Flask", iconUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmD38KsMgEwahtWc_Nfs5ZVktP9dBc36MUZA&s", docUrl: "https://flask.palletsprojects.com/" },
-      { name: "Apollo Server", iconUrl: "https://w7.pngwing.com/pngs/238/408/png-transparent-apollo-graphql-compact-hd-logo.png", docUrl: "https://www.apollographql.com/docs/apollo-server/" },
-      { name: "Spring Boot", iconUrl: "https://pnghdpro.com/wp-content/themes/pnghdpro/download/social-media-and-brands/spring-boot-logo-icon-hd.png", docUrl: "https://spring.io/projects/spring-boot" },
+      { name: "Node.js", iconUrl: "/assets/skills/nodejs.svg", docUrl: "https://nodejs.org/docs" },
+      { name: "Flask", iconUrl: "/assets/skills/flask.svg", docUrl: "https://flask.palletsprojects.com/" },
+      { name: "Apollo Server", iconUrl: "/assets/skills/apollo.svg", docUrl: "https://www.apollographql.com/docs/apollo-server/" },
+      { name: "Spring Boot", iconUrl: "/assets/skills/spring.svg", docUrl: "https://spring.io/projects/spring-boot" },
     ],
     apis: [
-      { name: "GraphQL", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/2048px-GraphQL_Logo.svg.png", docUrl: "https://graphql.org/learn/" },
-      { name: "REST", iconUrl: "https://freepngimg.com/download/icon/web/7955-rest-api.png", docUrl: "https://restfulapi.net/" },
+      { name: "GraphQL", iconUrl: "/assets/skills/graphql.svg", docUrl: "https://graphql.org/learn/" },
+      { name: "REST", iconUrl: "", docUrl: "https://restfulapi.net/" },
     ],
     databases: [
-      { name: "PostgreSQL", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1985px-Postgresql_elephant.svg.png", docUrl: "https://www.postgresql.org/docs/" },
-      { name: "MongoDB", iconUrl: "https://www.golden-team.org/static/services/mongodb.webp", docUrl: "https://www.mongodb.com/docs/" },
+      { name: "PostgreSQL", iconUrl: "/assets/skills/postgresql.svg", docUrl: "https://www.postgresql.org/docs/" },
+      { name: "MongoDB", iconUrl: "/assets/skills/mongodb.svg", docUrl: "https://www.mongodb.com/docs/" },
     ],
     devops: [
-      { name: "Docker", iconUrl: "https://cdn.worldvectorlogo.com/logos/docker-4.svg", docUrl: "https://docs.docker.com/" },
-      { name: "Kubernetes", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1055px-Kubernetes_logo_without_workmark.svg.png", docUrl: "https://kubernetes.io/docs/" },
-      { name: "Git", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Git_icon.svg/2048px-Git_icon.svg.png", docUrl: "https://git-scm.com/doc" },
-      { name: "Jest", iconUrl: "https://cdn.freebiesupply.com/logos/large/2x/jest-logo-png-transparent.png", docUrl: "https://jestjs.io/docs/getting-started" },
-      { name: "Cypress", iconUrl: "https://cdn.worldvectorlogo.com/logos/cypress-1.svg", docUrl: "https://docs.cypress.io/" },
-      { name: "Cucumber", iconUrl: "https://pic.vsixhub.com/84/18/laurence79.cucumber-js-test-explorer-logo.webp", docUrl: "https://cucumber.io/docs/cucumber/" },
+      { name: "Docker", iconUrl: "/assets/skills/docker.svg", docUrl: "https://docs.docker.com/" },
+      { name: "Kubernetes", iconUrl: "/assets/skills/kubernetes.svg", docUrl: "https://kubernetes.io/docs/" },
+      { name: "Git", iconUrl: "/assets/skills/git.svg", docUrl: "https://git-scm.com/doc" },
+      { name: "Jest", iconUrl: "/assets/skills/jest.svg", docUrl: "https://jestjs.io/docs/getting-started" },
+      { name: "Cypress", iconUrl: "/assets/skills/cypress.svg", docUrl: "https://docs.cypress.io/" },
+      { name: "Cucumber", iconUrl: "/assets/skills/cucumber.svg", docUrl: "https://cucumber.io/docs/cucumber/" },
     ],
     cloud: [
-      { name: "AWS", iconUrl: "https://us-east-2.signin.aws.amazon.com/v2/assets/_next/static/media/aws-logo@2x.7c50e6f9.png", docUrl: "https://docs.aws.amazon.com/" },
-      { name: "Microsoft Azure", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Microsoft_Azure.svg/1200px-Microsoft_Azure.svg.png", docUrl: "https://learn.microsoft.com/en-us/azure/" },
+      { name: "AWS", iconUrl: "/assets/skills/aws.svg", docUrl: "https://docs.aws.amazon.com/" },
+      { name: "Microsoft Azure", iconUrl: "/assets/skills/azure.svg", docUrl: "https://learn.microsoft.com/en-us/azure/" },
     ],
   },
   navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
@@ -85,6 +89,55 @@ export const DATA = {
     },
   },
 
+  ventures: [
+    {
+      name: "Call Next",
+      role: { en: "Founder & CEO", fr: "Fondateur et PDG" },
+      href: "https://call-next.com",
+      appStoreUrl: "https://apps.apple.com/us/app/call-next/id6744909379",
+      logoUrl: "/assets/ventures/call-next.png",
+      shot: "/assets/ventures/cn-explore.png",
+      shotPortrait: true,
+      shotAlt: {
+        en: "Call Next live map of pickup games across Montreal",
+        fr: "Carte en temps réel des parties libres à Montréal dans Call Next",
+      },
+      period: { en: "2024", fr: "2024" },
+      tagline: {
+        en: "Find your next game.",
+        fr: "Trouve ta prochaine partie.",
+      },
+      description: {
+        en: "A pickup app for basketball, soccer and volleyball. One live map of 100+ Montreal courts shows who is playing right now, so you can join a run tonight and keep a record of every game, stat and rating. Live on the App Store.",
+        fr: "Une application de sport libre pour le basketball, le soccer et le volleyball. Une carte en temps réel de plus de 100 terrains montréalais montre qui joue maintenant, pour rejoindre une partie ce soir et garder une trace de chaque match, statistique et cote. Disponible sur l'App Store.",
+      },
+      technologies: ["React Native", "Expo", "Next.js", "TypeScript", "PostgreSQL"],
+    },
+    {
+      name: "Next Leagz",
+      role: { en: "Founder & CEO", fr: "Fondateur et PDG" },
+      href: "https://next-leagz.com",
+      appStoreUrl: "",
+      logoUrl: "/assets/ventures/next-leagz.png",
+      shot: "/assets/ventures/nl-scoreboard.png",
+      shotPortrait: false,
+      shotAlt: {
+        en: "Next Leagz live scoreboard with play-by-play",
+        fr: "Tableau de score en direct de Next Leagz avec jeu par jeu",
+      },
+      period: { en: "2025", fr: "2025" },
+      tagline: {
+        en: "Run your league like the big leagues.",
+        fr: "Gère ta ligue comme les grandes ligues.",
+      },
+      description: {
+        en: "League management for owners: scheduling, live scorekeeping, real-time stats and player registration in one platform. It plugs into the Call Next ecosystem, so players get league schedules, standings and stats in the app they already use.",
+        fr: "Gestion de ligue pour les propriétaires : horaires, pointage en direct, statistiques en temps réel et inscription des joueurs sur une seule plateforme. Elle se branche à l'écosystème Call Next, pour que les joueurs retrouvent horaires, classements et statistiques dans l'application qu'ils utilisent déjà.",
+      },
+      technologies: ["React Native", "Expo", "TypeScript", "Node.js"],
+    },
+  ] as Venture[],
+
   work: [
     {
       company: { en: "Morgan Stanley", fr: "Morgan Stanley" },
@@ -92,7 +145,7 @@ export const DATA = {
       badges: [],
       location: { en: "Montreal, Canada", fr: "Montréal, Canada" },
       title: { en: "Software Engineer II", fr: "Ingénieur Logiciel II" },
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQag118ifLpCEx2fNF5xRNCPOP7ACQIOmk9UQ&s",
+      logoUrl: "/assets/logos/morgan-stanley.svg",
       start: { en: "Aug 2023", fr: "Août 2023" },
       end: { en: "Present", fr: "Présent" },
       description: {
@@ -106,7 +159,7 @@ export const DATA = {
       href: "https://www.onetrip.io/",
       location: { en: "Montreal, Canada", fr: "Montréal, Canada" },
       title: { en: "Full-Stack Developer", fr: "Développeur Full-Stack" },
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA15YqZM4wqqaUUXiCSoCEpCxuTySS53lDvw&s",
+      logoUrl: "/assets/logos/epipresto.png",
       start: { en: "Sep 2022", fr: "Sep 2022" },
       end: { en: "Dec 2022", fr: "Déc 2022" },
       description: {
@@ -120,7 +173,7 @@ export const DATA = {
       badges: [],
       location: { en: "Montreal, Canada", fr: "Montréal, Canada" },
       title: { en: "Back-End Developer Intern", fr: "Stagiaire Développeur Back-End" },
-      logoUrl: "https://www.bnc.ca/content/dam/global/logo/bnc-logo.png",
+      logoUrl: "/assets/logos/national-bank.svg",
       start: { en: "May 2022", fr: "Mai 2022" },
       end: { en: "Sep 2022", fr: "Sep 2022" },
       description: {
@@ -134,7 +187,7 @@ export const DATA = {
       badges: [],
       location: { en: "Montreal, Canada", fr: "Montréal, Canada" },
       title: { en: "Tools Developer Intern", fr: "Stagiaire Développeur Outils" },
-      logoUrl: "https://media.licdn.com/dms/image/v2/C4E0BAQEqo6pG3uct-Q/company-logo_200_200/company-logo_200_200/0/1630610177498/thalesesecurity_logo?e=2147483647&v=beta&t=uJyY6IbKpMZvNqN1MloB3nVJe_A-lukiv_1aSsbwBGo",
+      logoUrl: "/assets/logos/thales.svg",
       start: { en: "Sep 2021", fr: "Sep 2021" },
       end: { en: "Dec 2021", fr: "Déc 2021" },
       description: {
@@ -148,11 +201,11 @@ export const DATA = {
       badges: [],
       location: { en: "Montreal, Canada", fr: "Montréal, Canada" },
       title: { en: "IoT Developer Intern", fr: "Stagiaire Développeur IoT" },
-      logoUrl: "https://www.sentiom.com/hs-fs/hubfs/Logos%20Sentiom%20(SANS%20bordure%20-%20AVEC%20fond)%20PNG/Logo%20Sentiom%20HORIZONTAL%20-%20COULEUR.png?width=800&height=800&name=Logo%20Sentiom%20HORIZONTAL%20-%20COULEUR.png",
+      logoUrl: "/assets/logos/sentiom.png",
       start: { en: "May 2021", fr: "Mai 2021" },
       end: { en: "Aug 2021", fr: "Août 2021" },
       description: {
-        en: "Worked with Raspberry Pi–based devices and sensors to support SENTIOM's goal of reducing water damage in buildings through early detection. Implemented an MQTT bridge for ~20 IoT devices, reducing message latency and improving the reliability of real-time sensor data. Automated messaging configuration using Bash/UNIX scripts, simplifying deployments and reducing manual setup errors. Built Python scripts to send events to Azure IoT Hub, enabling centralized monitoring and downstream analytics on incoming sensor data.",
+        en: "Worked with Raspberry Pi-based devices and sensors to support SENTIOM's goal of reducing water damage in buildings through early detection. Implemented an MQTT bridge for ~20 IoT devices, reducing message latency and improving the reliability of real-time sensor data. Automated messaging configuration using Bash/UNIX scripts, simplifying deployments and reducing manual setup errors. Built Python scripts to send events to Azure IoT Hub, enabling centralized monitoring and downstream analytics on incoming sensor data.",
         fr: "Travail avec des appareils et capteurs basés sur Raspberry Pi pour soutenir l'objectif de SENTIOM de réduire les dégâts des eaux dans les bâtiments grâce à une détection précoce. Implémentation d'un pont MQTT pour ~20 appareils IoT, réduisant la latence des messages et améliorant la fiabilité des données de capteurs en temps réel. Automatisation de la configuration de messagerie avec des scripts Bash/UNIX, simplifiant les déploiements et réduisant les erreurs de configuration manuelle. Création de scripts Python pour envoyer des événements à Azure IoT Hub, permettant une surveillance centralisée et des analyses en aval sur les données de capteurs entrantes.",
       },
     },
@@ -165,7 +218,7 @@ export const DATA = {
         en: "Bachelor of Computer Engineering (B.Eng.)",
         fr: "Baccalauréat en Génie Informatique (B.Ing.)",
       },
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgQu5sDEYjbsszAQZXcnuBXYdjnFiOmr3dww&s",
+      logoUrl: "/assets/logos/polytechnique.png",
       start: { en: "Sep 2018", fr: "Sep 2018" },
       end: { en: "May 2023", fr: "Mai 2023" },
     },
@@ -176,26 +229,26 @@ export const DATA = {
       issuer: "Apollo GraphQL",
       date: { en: "Jan 2024", fr: "Jan 2024" },
       url: "https://www.apollographql.com/tutorials/certifications/308df5cd-c118-463f-9024-d9ba27e7c5ea",
-      image: "https://res.cloudinary.com/apollographql/image/upload/v1632844693/badge_sfsiin.svg",
+      image: "/assets/certs/apollo-associate.svg",
     },
     {
       name: "Graph Developer - Professional",
       issuer: "Apollo GraphQL",
       date: { en: "Jan 2024", fr: "Jan 2024" },
       url: "https://www.apollographql.com/tutorials/certifications/4dd19dad-1454-4bf8-a8df-affb051c127c",
-      image: "https://res.cloudinary.com/apollographql/image/upload/v1654200365/odyssey/certifications/graph_professional_badge.svg",
+      image: "/assets/certs/apollo-professional.svg",
     },
   ],
   spokenLanguages: [
     {
       name: { en: "French", fr: "Français" },
       level: { en: "Native", fr: "Natif" },
-      flagUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/2560px-Flag_of_France.svg.png",
+      flagUrl: "/assets/flags/fr.svg",
     },
     {
       name: { en: "English", fr: "Anglais" },
       level: { en: "Fluent", fr: "Courant" },
-      flagUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/1024px-Flag_of_the_United_Kingdom_%283-5%29.svg.png",
+      flagUrl: "/assets/flags/gb.svg",
     },
   ],
   projects: [] as any[],
@@ -205,8 +258,26 @@ export const DATA = {
 // Helper type for bilingual fields
 export type BilingualField = { en: string; fr: string };
 
+export type Venture = {
+  name: string;
+  role: BilingualField;
+  href: string;
+  appStoreUrl: string;
+  logoUrl: string;
+  shot: string;
+  shotPortrait: boolean;
+  shotAlt: BilingualField;
+  period: BilingualField;
+  tagline: BilingualField;
+  description: BilingualField;
+  technologies: string[];
+};
+
 // Helper function to get localized value
-export const getLocalized = (field: BilingualField | string, locale: "en" | "fr"): string => {
+export const getLocalized = (
+  field: BilingualField | string,
+  locale: "en" | "fr"
+): string => {
   if (typeof field === "string") return field;
   return field[locale] || field.en;
 };

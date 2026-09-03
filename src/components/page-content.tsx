@@ -1,302 +1,374 @@
 "use client";
 
-import { HackathonCard } from "@/components/hackathon-card";
-import BlurFade from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { ProjectCard } from "@/components/project-card";
-import { ResumeCard } from "@/components/resume-card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DATA, getLocalized } from "@/data/resume";
-import { useLocale } from "@/components/locale-provider";
 import Image from "next/image";
 import Link from "next/link";
-import Markdown from "react-markdown";
-import { useEffect, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { DATA, getLocalized } from "@/data/resume";
+import { useLocale } from "@/components/locale-provider";
+import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
+import { ResumeCard } from "@/components/resume-card";
+import { VentureCard } from "@/components/venture-card";
 
-const BLUR_FADE_DELAY = 0.04;
-
-// UI translations for section headers
-const uiTranslations = {
+const T = {
   en: {
-    hero_greeting: "Hi, I'm",
-    about: "About",
-    work_experience: "Work Experience",
+    heroCtaContact: "Get in touch",
+    heroCtaVentures: "See the ventures",
+    currently: "Currently",
+    aboutTitle: "About",
+    venturesKicker: "Founder",
+    venturesTitle: "Building for Montréal sports",
+    venturesIntro:
+      "Two products, one ecosystem: a pickup app that players open every week, and the league platform that runs the organized side.",
+    workTitle: "Work",
+    workIntro:
+      "Six years across payments, e-commerce and IoT. Most of it building and shipping to production.",
     education: "Education",
-    skills: "Skills",
+    stackTitle: "Stack",
+    stackIntro:
+      "What I reach for. Deepest in TypeScript and Java on the product side, Spring Boot and Postgres on the server, Azure and AWS for delivery.",
     certifications: "Certifications",
-    spoken_languages: "Languages",
-    my_projects: "My Projects",
-    check_out_work: "Check out my latest work",
-    projects_description: "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
-    hackathons: "Hackathons",
-    i_like_building: "I like building things",
-    hackathons_description: "During my time in university, I attended {count}+ hackathons. People from around the country would come together and build incredible things in 2-3 days. It was eye-opening to see the endless possibilities brought to life by a group of motivated and passionate individuals.",
-    contact: "Contact",
-    get_in_touch: "Get in Touch",
-    contact_description: "Want to connect? Feel free to reach out via",
-    or_send_email: "or send me an",
-    email: "email",
-    always_open: "I'm always open to discussing new opportunities.",
-    // Skill categories
-    languages_skill: "Languages",
-    frontend: "Frontend",
-    backend: "Backend",
-    apis: "APIs",
-    databases: "Databases",
-    devops: "DevOps & Testing",
-    cloud: "Cloud",
+    languages: "Languages",
+    contactTitle: "Let's talk",
+    contactBody:
+      "I am building Call Next and Next Leagz and I am always up for a conversation about product, payments infrastructure or Montréal sports.",
+    contactVia: "Find me on",
+    catLabels: {
+      languages: "Languages",
+      frontend: "Frontend",
+      backend: "Backend",
+      apis: "APIs",
+      databases: "Data",
+      devops: "DevOps & testing",
+      cloud: "Cloud",
+    } as Record<string, string>,
   },
   fr: {
-    hero_greeting: "Salut, je suis",
-    about: "À propos",
-    work_experience: "Expérience Professionnelle",
+    heroCtaContact: "Me contacter",
+    heroCtaVentures: "Voir les entreprises",
+    currently: "En ce moment",
+    aboutTitle: "Profil",
+    venturesKicker: "Fondateur",
+    venturesTitle: "Bâtir pour le sport montréalais",
+    venturesIntro:
+      "Deux produits, un écosystème : une application de sport libre que les joueurs ouvrent chaque semaine, et la plateforme de ligue qui gère le côté organisé.",
+    workTitle: "Parcours",
+    workIntro:
+      "Six ans dans les paiements, le commerce en ligne et l'IoT. Surtout à construire et livrer en production.",
     education: "Formation",
-    skills: "Compétences",
+    stackTitle: "Stack",
+    stackIntro:
+      "Ce que j'utilise. Surtout TypeScript et Java côté produit, Spring Boot et Postgres côté serveur, Azure et AWS pour la livraison.",
     certifications: "Certifications",
-    spoken_languages: "Langues",
-    my_projects: "Mes Projets",
-    check_out_work: "Découvrez mes derniers travaux",
-    projects_description: "J'ai travaillé sur divers projets, des sites web simples aux applications web complexes. Voici quelques-uns de mes favoris.",
-    hackathons: "Hackathons",
-    i_like_building: "J'aime construire des choses",
-    hackathons_description: "Pendant mes études universitaires, j'ai participé à {count}+ hackathons. Des gens de tout le pays se réunissaient pour créer des choses incroyables en 2-3 jours. C'était révélateur de voir les possibilités infinies réalisées par un groupe de personnes motivées et passionnées.",
-    contact: "Contact",
-    get_in_touch: "Contactez-moi",
-    contact_description: "Vous souhaitez échanger ? N'hésitez pas à me contacter via",
-    or_send_email: "ou envoyez-moi un",
-    email: "courriel",
-    always_open: "Je suis toujours ouvert à discuter de nouvelles opportunités.",
-    // Skill categories
-    languages_skill: "Langages",
-    frontend: "Frontend",
-    backend: "Backend",
-    apis: "APIs",
-    databases: "Bases de données",
-    devops: "DevOps & Tests",
-    cloud: "Cloud",
+    languages: "Langues",
+    contactTitle: "Parlons-en",
+    contactBody:
+      "Je construis Call Next et Next Leagz, et je suis toujours partant pour une discussion sur le produit, l'infrastructure de paiement ou le sport à Montréal.",
+    contactVia: "Retrouvez-moi sur",
+    catLabels: {
+      languages: "Langages",
+      frontend: "Frontend",
+      backend: "Backend",
+      apis: "APIs",
+      databases: "Données",
+      devops: "DevOps et tests",
+      cloud: "Cloud",
+    } as Record<string, string>,
   },
 };
 
 export default function PageContent() {
   const { locale } = useLocale();
-  const t = uiTranslations[locale];
-  const [hasAnimated, setHasAnimated] = useState(false);
-
-  useEffect(() => {
-    // Mark as animated after the first render
-    if (!hasAnimated) {
-      setHasAnimated(true);
-    }
-  }, [hasAnimated]);
-
-  // Use delay only for first animation, 0 for subsequent renders
-  const getDelay = (delay: number) => (hasAnimated ? 0 : delay);
-
-  const getSkillCategoryLabel = (category: string) => {
-    const labels: Record<string, string> = {
-      languages: t.languages_skill,
-      frontend: t.frontend,
-      backend: t.backend,
-      apis: t.apis,
-      databases: t.databases,
-      devops: t.devops,
-      cloud: t.cloud,
-    };
-    return labels[category] || category.charAt(0).toUpperCase() + category.slice(1);
-  };
+  const t = T[locale];
+  const [first, ...rest] = DATA.name.split(" ");
 
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10">
-      <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 flex justify-between">
-            <div className="flex-col flex flex-1 space-y-1.5">
-              <BlurFadeText delay={getDelay(BLUR_FADE_DELAY)} className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none" yOffset={8} text={`${t.hero_greeting} ${DATA.name.split(" ")[0]}`} />
-              <BlurFadeText className="max-w-[600px] md:text-xl" delay={getDelay(BLUR_FADE_DELAY)} text={getLocalized(DATA.description, locale)} />
+    <main id="top">
+      {/* Hero */}
+      <section className="container-page grid min-h-[92vh] items-center gap-12 pb-20 pt-32 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-20">
+        <div className="flex flex-col gap-6">
+          <p className="reveal-in kicker">
+            {getLocalized(DATA.location, locale)}
+          </p>
+          <h1
+            className="reveal-in text-[clamp(2.5rem,6.4vw,4.75rem)] font-semibold leading-[0.98] tracking-tight [text-wrap:balance]"
+            style={{ ["--reveal-delay" as string]: "60ms" }}
+          >
+            {first}
+            <br />
+            {rest.join(" ")}
+          </h1>
+          <p
+            className="reveal-in max-w-[40ch] text-pretty text-lg leading-relaxed text-foreground/80 sm:text-xl"
+            style={{ ["--reveal-delay" as string]: "140ms" }}
+          >
+            {getLocalized(DATA.description, locale)}
+          </p>
+          <div
+            className="reveal-in mt-3 flex flex-wrap items-center gap-3"
+            style={{ ["--reveal-delay" as string]: "220ms" }}
+          >
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary py-2.5 pl-5 pr-2.5 text-sm font-medium text-primary-foreground transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98]"
+            >
+              {t.heroCtaContact}
+              <span className="flex size-7 items-center justify-center rounded-full bg-black/15 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <ArrowUpRight className="size-3.5" />
+              </span>
+            </a>
+            <a
+              href="#ventures"
+              className="link-underline text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {t.heroCtaVentures}
+            </a>
+          </div>
+        </div>
+
+        <Reveal
+          className="mx-auto w-full max-w-[18rem] lg:mx-0 lg:mt-8"
+          delay={0.15}
+        >
+          <div className="surface overflow-hidden p-2">
+            <Image
+              src={DATA.avatarUrl}
+              alt={DATA.name}
+              width={480}
+              height={600}
+              priority
+              className="aspect-[4/5] w-full rounded-[6px] object-cover"
+            />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* About */}
+      <section
+        id="about"
+        className="container-page border-t border-border py-24 sm:py-32"
+      >
+        <div className="grid gap-10 md:grid-cols-[14rem_1fr] md:gap-16">
+          <Reveal className="flex flex-col gap-6">
+            <h2 className="text-3xl font-semibold tracking-tight">
+              {t.aboutTitle}
+            </h2>
+            <div className="flex flex-col gap-1">
+              <span className="kicker">{t.currently}</span>
+              <span className="text-sm text-foreground/80">
+                Morgan Stanley
+              </span>
+              <span className="text-sm text-foreground/80">
+                Call Next, Next Leagz
+              </span>
             </div>
-            <BlurFade delay={getDelay(BLUR_FADE_DELAY)}>
-              <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
-          </div>
+          </Reveal>
+
+          <Reveal delay={0.08} className="flex flex-col gap-5">
+            {getLocalized(DATA.summary, locale)
+              .split("\n")
+              .map((para, i) => (
+                <p
+                  key={i}
+                  className="max-w-[58ch] text-pretty text-lg leading-relaxed text-foreground/85"
+                >
+                  {para}
+                </p>
+              ))}
+          </Reveal>
         </div>
       </section>
-      <section id="about">
-        <BlurFade delay={getDelay(BLUR_FADE_DELAY * 3)}>
-          <h2 className="text-xl font-bold">{t.about}</h2>
-        </BlurFade>
-        <BlurFade delay={getDelay(BLUR_FADE_DELAY * 4)}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">{getLocalized(DATA.summary, locale)}</Markdown>
-        </BlurFade>
-      </section>
-      <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={getDelay(BLUR_FADE_DELAY * 5)}>
-            <h2 className="text-xl font-bold">{t.work_experience}</h2>
-          </BlurFade>
-          {DATA.work.map((work, id) => (
-            <BlurFade key={`work-${id}`} delay={getDelay(BLUR_FADE_DELAY * 6 + id * 0.05)}>
-              <ResumeCard key={`work-${id}`} logoUrl={work.logoUrl} altText={getLocalized(work.company, locale)} title={getLocalized(work.company, locale)} subtitle={getLocalized(work.title, locale)} href={work.href} badges={work.badges} period={`${getLocalized(work.start, locale)} - ${getLocalized(work.end, locale)}`} description={getLocalized(work.description, locale)} />
-            </BlurFade>
+
+      {/* Ventures */}
+      <section
+        id="ventures"
+        className="container-page border-t border-border py-24 sm:py-32"
+      >
+        <SectionHeading
+          kicker={t.venturesKicker}
+          title={t.venturesTitle}
+          intro={t.venturesIntro}
+        />
+        <div className="mt-16 flex flex-col gap-24 sm:gap-28">
+          {DATA.ventures.map((venture, i) => (
+            <Reveal key={venture.name} delay={0.04}>
+              <VentureCard
+                venture={venture}
+                locale={locale}
+                index={String(i + 1).padStart(2, "0")}
+                reversed={i % 2 === 1}
+              />
+            </Reveal>
           ))}
         </div>
       </section>
-      <section id="education">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={getDelay(BLUR_FADE_DELAY * 7)}>
-            <h2 className="text-xl font-bold">{t.education}</h2>
-          </BlurFade>
-          {DATA.education.map((education, id) => (
-            <BlurFade key={`education-${id}`} delay={getDelay(BLUR_FADE_DELAY * 8 + id * 0.05)}>
-              <ResumeCard key={`education-${id}`} href={education.href} logoUrl={education.logoUrl} altText={getLocalized(education.school, locale)} title={getLocalized(education.school, locale)} subtitle={getLocalized(education.degree, locale)} period={`${getLocalized(education.start, locale)} - ${getLocalized(education.end, locale)}`} />
-            </BlurFade>
+
+      {/* Work */}
+      <section
+        id="work"
+        className="container-page border-t border-border py-24 sm:py-32"
+      >
+        <SectionHeading title={t.workTitle} intro={t.workIntro} />
+
+        <ul className="mt-14 divide-y divide-border border-y border-border">
+          {DATA.work.map((work, i) => (
+            <ResumeCard
+              key={`work-${i}`}
+              logoUrl={work.logoUrl}
+              altText={getLocalized(work.company, locale)}
+              title={getLocalized(work.company, locale)}
+              subtitle={getLocalized(work.title, locale)}
+              href={work.href}
+              period={`${getLocalized(work.start, locale)} - ${getLocalized(
+                work.end,
+                locale
+              )}`}
+              description={getLocalized(work.description, locale)}
+              locale={locale}
+            />
+          ))}
+        </ul>
+
+        <Reveal className="mt-12 flex flex-col gap-3">
+          <span className="kicker">{t.education}</span>
+          {DATA.education.map((edu, i) => (
+            <div
+              key={`edu-${i}`}
+              className="flex flex-wrap items-baseline gap-x-3 gap-y-1"
+            >
+              <Link
+                href={edu.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-[15px] font-semibold"
+              >
+                {getLocalized(edu.school, locale)}
+              </Link>
+              <span className="text-sm text-muted-foreground">
+                {getLocalized(edu.degree, locale)}
+              </span>
+              <span className="font-mono text-xs text-muted-foreground">
+                {getLocalized(edu.start, locale)} - {getLocalized(edu.end, locale)}
+              </span>
+            </div>
+          ))}
+        </Reveal>
+      </section>
+
+      {/* Stack */}
+      <section
+        id="stack"
+        className="container-page border-t border-border py-24 sm:py-32"
+      >
+        <SectionHeading title={t.stackTitle} intro={t.stackIntro} />
+
+        <div className="mt-14 flex flex-col divide-y divide-border border-y border-border">
+          {Object.entries(DATA.skills).map(([category, skills]) => (
+            <Reveal
+              key={category}
+              className="grid gap-x-6 gap-y-3 py-5 sm:grid-cols-[10rem_1fr]"
+            >
+              <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                {t.catLabels[category] ?? category}
+              </h3>
+              <div className="flex flex-wrap gap-x-5 gap-y-2.5">
+                {skills.map((skill) => (
+                  <Link
+                    key={skill.name}
+                    href={skill.docUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 text-sm text-foreground/85 transition-colors hover:text-foreground"
+                  >
+                    {skill.iconUrl && (
+                      <Image
+                        src={skill.iconUrl}
+                        alt=""
+                        width={16}
+                        height={16}
+                        className="size-4 object-contain opacity-85 transition-opacity duration-300 group-hover:opacity-100"
+                      />
+                    )}
+                    {skill.name}
+                  </Link>
+                ))}
+              </div>
+            </Reveal>
           ))}
         </div>
-      </section>
-      <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-4">
-          <BlurFade delay={getDelay(BLUR_FADE_DELAY * 9)}>
-            <h2 className="text-xl font-bold">{t.skills}</h2>
-          </BlurFade>
+
+        <Reveal className="mt-12 grid gap-8 sm:grid-cols-2">
           <div className="flex flex-col gap-3">
-            {Object.entries(DATA.skills).map(([category, skills], categoryIndex) => (
-              <BlurFade key={category} delay={getDelay(BLUR_FADE_DELAY * 10 + categoryIndex * 0.05)}>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                  <h3 className="font-semibold text-sm min-w-[120px] text-muted-foreground">{getSkillCategoryLabel(category)}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skills.map((skill) => (
-                      <Link key={skill.name} href={skill.docUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 rounded-md bg-secondary px-2.5 py-1 text-sm hover:bg-secondary/80 transition-colors">
-                        {skill.iconUrl && <Image src={skill.iconUrl} alt={skill.name} width={16} height={16} className="size-4" />}
-                        <span>{skill.name}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </BlurFade>
+            <span className="kicker">{t.certifications}</span>
+            {DATA.certifications.map((cert) => (
+              <Link
+                key={cert.name}
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-baseline gap-2 text-sm"
+              >
+                <span className="link-underline font-medium">{cert.name}</span>
+                <span className="text-muted-foreground">{cert.issuer}</span>
+              </Link>
             ))}
           </div>
-        </div>
-      </section>
-      <section id="certifications">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={getDelay(BLUR_FADE_DELAY * 11)}>
-            <h2 className="text-xl font-bold">{t.certifications}</h2>
-          </BlurFade>
-          {DATA.certifications.map((cert, id) => (
-            <BlurFade key={cert.name} delay={getDelay(BLUR_FADE_DELAY * 12 + id * 0.05)}>
-              <div className="flex items-center gap-4 rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
-                {cert.image && (
-                  <div className="flex-shrink-0">
-                    <Image src={cert.image} alt={cert.name} width={64} height={64} className="size-16 object-contain" />
-                  </div>
-                )}
-                <div className="flex flex-1 items-center justify-between gap-4">
-                  <div className="flex flex-col gap-1">
-                    <h3 className="font-semibold text-sm sm:text-base">
-                      {cert.url ? (
-                        <Link href={cert.url} target="_blank" className="hover:underline">
-                          {cert.name}
-                        </Link>
-                      ) : (
-                        cert.name
-                      )}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground">{cert.issuer}</p>
-                  </div>
-                  <div className="text-xs sm:text-sm tabular-nums text-muted-foreground whitespace-nowrap">{getLocalized(cert.date, locale)}</div>
-                </div>
-              </div>
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-      <section id="languages">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={getDelay(BLUR_FADE_DELAY * 13)}>
-            <h2 className="text-xl font-bold">{t.spoken_languages}</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-2">
-            {DATA.spokenLanguages.map((lang, id) => (
-              <BlurFade key={`lang-${id}`} delay={getDelay(BLUR_FADE_DELAY * 14 + id * 0.05)}>
-                <div className="flex items-center gap-1.5 rounded-md bg-secondary px-2.5 py-1.5 text-sm">
-                  {lang.flagUrl && <Image src={lang.flagUrl} alt={getLocalized(lang.name, locale)} width={20} height={15} className="w-5 h-auto rounded-sm" />}
-                  <span className="font-medium">{getLocalized(lang.name, locale)}</span>
-                  <span className="text-muted-foreground">•</span>
-                  <span className="text-muted-foreground">{getLocalized(lang.level, locale)}</span>
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-      {DATA.projects.length > 0 && (
-        <section id="projects">
-          <div className="space-y-12 w-full py-12">
-            <BlurFade delay={getDelay(BLUR_FADE_DELAY * 15)}>
-              <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="space-y-2">
-                  <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">{t.my_projects}</div>
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{t.check_out_work}</h2>
-                  <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">{t.projects_description}</p>
-                </div>
-              </div>
-            </BlurFade>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-              {DATA.projects.map((project, id) => (
-                <BlurFade key={`project-${id}`} delay={getDelay(BLUR_FADE_DELAY * 16 + id * 0.05)}>
-                  <ProjectCard href={project.href} key={`project-${id}`} title={getLocalized(project.title, locale)} description={getLocalized(project.description, locale)} dates={getLocalized(project.dates, locale)} tags={project.technologies} image={project.image} video={project.video} links={project.links} />
-                </BlurFade>
+          <div className="flex flex-col gap-3">
+            <span className="kicker">{t.languages}</span>
+            <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm">
+              {DATA.spokenLanguages.map((lang) => (
+                <span key={getLocalized(lang.name, locale)}>
+                  <span className="font-medium">
+                    {getLocalized(lang.name, locale)}
+                  </span>{" "}
+                  <span className="text-muted-foreground">
+                    {getLocalized(lang.level, locale)}
+                  </span>
+                </span>
               ))}
             </div>
           </div>
-        </section>
-      )}
-      {DATA.hackathons.length > 0 && (
-        <section id="hackathons">
-          <div className="space-y-12 w-full py-12">
-            <BlurFade delay={getDelay(BLUR_FADE_DELAY * 17)}>
-              <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="space-y-2">
-                  <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">{t.hackathons}</div>
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{t.i_like_building}</h2>
-                  <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">{t.hackathons_description.replace("{count}", String(DATA.hackathons.length))}</p>
-                </div>
-              </div>
-            </BlurFade>
-            <BlurFade delay={getDelay(BLUR_FADE_DELAY * 18)}>
-              <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
-                {DATA.hackathons.map((project, id) => (
-                  <BlurFade key={`hackathon-${id}`} delay={getDelay(BLUR_FADE_DELAY * 19 + id * 0.05)}>
-                    <HackathonCard title={getLocalized(project.title, locale)} description={getLocalized(project.description, locale)} location={getLocalized(project.location, locale)} dates={getLocalized(project.dates, locale)} image={project.image} links={project.links} />
-                  </BlurFade>
-                ))}
-              </ul>
-            </BlurFade>
+        </Reveal>
+      </section>
+
+      {/* Contact */}
+      <section
+        id="contact"
+        className="container-page border-t border-border py-28 sm:py-36"
+      >
+        <Reveal className="flex max-w-2xl flex-col gap-8">
+          <h2 className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+            {t.contactTitle}
+          </h2>
+          <p className="max-w-[46ch] text-pretty text-lg leading-relaxed text-muted-foreground">
+            {t.contactBody}
+          </p>
+          <Link
+            href={`mailto:${DATA.contact.email}`}
+            className="link-underline w-fit font-display text-2xl font-semibold tracking-tight sm:text-3xl"
+          >
+            {DATA.contact.email}
+          </Link>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <span className="kicker">{t.contactVia}</span>
+            <Link
+              href={DATA.contact.social.LinkedIn.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline transition-colors hover:text-foreground"
+            >
+              LinkedIn
+            </Link>
+            <Link
+              href={DATA.contact.social.GitHub.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline transition-colors hover:text-foreground"
+            >
+              GitHub
+            </Link>
           </div>
-        </section>
-      )}
-      <section id="contact">
-        <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
-          <BlurFade delay={getDelay(BLUR_FADE_DELAY * 20)}>
-            <div className="space-y-3">
-              <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">{t.contact}</div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{t.get_in_touch}</h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {t.contact_description}{" "}
-                <Link href={DATA.contact.social.LinkedIn.url} className="text-blue-500 hover:underline">
-                  LinkedIn
-                </Link>{" "}
-                {t.or_send_email}{" "}
-                <Link href={`mailto:${DATA.contact.email}`} className="text-blue-500 hover:underline">
-                  {t.email}
-                </Link>
-                . {t.always_open}
-              </p>
-            </div>
-          </BlurFade>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

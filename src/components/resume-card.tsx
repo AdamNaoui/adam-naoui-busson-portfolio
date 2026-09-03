@@ -1,12 +1,9 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { ChevronRightIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { Plus, ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface ResumeCardProps {
@@ -15,83 +12,100 @@ interface ResumeCardProps {
   title: string;
   subtitle?: string;
   href?: string;
-  badges?: readonly string[];
   period: string;
   description?: string;
+  locale?: "en" | "fr";
 }
-export const ResumeCard = ({ logoUrl, altText, title, subtitle, href, badges, period, description }: ResumeCardProps) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (description) {
-      e.preventDefault();
-      setIsExpanded(!isExpanded);
-    }
-  };
+export const ResumeCard = ({
+  logoUrl,
+  altText,
+  title,
+  subtitle,
+  href,
+  period,
+  description,
+}: ResumeCardProps) => {
+  const [open, setOpen] = React.useState(false);
 
-  // Convert description to bullet points by splitting on sentences
-  const getBulletPoints = (text: string) => {
-    // Split by periods followed by space and capital letter, keeping the sentence structure
-    const sentences = text
-      .split(/\.\s+(?=[A-Z])/)
-      .map((sentence) => sentence.trim())
-      .filter((sentence) => sentence.length > 0)
-      .map((sentence) => (sentence.endsWith(".") ? sentence : sentence + "."));
-    return sentences;
-  };
+  const bullets = description
+    ? description
+        .split(/\.\s+(?=[A-Z])/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .map((s) => (s.endsWith(".") ? s : s + "."))
+    : [];
 
   return (
-    <Link href={href || "#"} className="block cursor-pointer" onClick={handleClick}>
-      <Card className="flex p-2">
-        <div className="flex-none">
-          <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
-            <AvatarImage src={logoUrl} alt={altText} className="object-contain" />
-            <AvatarFallback>{altText[0]}</AvatarFallback>
-          </Avatar>
+    <li className="group py-5">
+      <div className="grid gap-x-6 gap-y-3 sm:grid-cols-[6.5rem_1fr]">
+        <div className="pt-1 font-mono text-xs tabular-nums text-muted-foreground">
+          {period}
         </div>
-        <div className="flex-grow ml-4 items-center flex-col group">
-          <CardHeader>
-            <div className="flex items-center justify-between gap-x-2 text-base">
-              <h3 className="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">
-                {title}
-                {badges && (
-                  <span className="inline-flex gap-x-1">
-                    {badges.map((badge, index) => (
-                      <Badge variant="secondary" className="align-middle text-xs" key={index}>
-                        {badge}
-                      </Badge>
-                    ))}
+
+        <div>
+          <button
+            type="button"
+            disabled={!description}
+            onClick={() => setOpen((v) => !v)}
+            className={cn(
+              "flex w-full items-start justify-between gap-4 text-left",
+              description && "cursor-pointer"
+            )}
+          >
+            <span className="flex items-start gap-3">
+              <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white ring-1 ring-black/5">
+                <Image
+                  src={logoUrl}
+                  alt={altText}
+                  width={22}
+                  height={22}
+                  className="size-[18px] object-contain"
+                />
+              </span>
+              <span>
+                <span className="flex items-center gap-1.5 text-[15px] font-semibold sm:text-base">
+                  {title}
+                  {href && (
+                    <Link
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      aria-label={`${title} website`}
+                      className="text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <ArrowUpRight className="size-3.5" />
+                    </Link>
+                  )}
+                </span>
+                {subtitle && (
+                  <span className="mt-0.5 block text-sm text-muted-foreground">
+                    {subtitle}
                   </span>
                 )}
-                <ChevronRightIcon className={cn("size-4 translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100", isExpanded ? "rotate-90" : "rotate-0")} />
-              </h3>
-              <div className="text-xs sm:text-sm tabular-nums text-muted-foreground text-right">{period}</div>
-            </div>
-            {subtitle && <div className="font-sans text-xs">{subtitle}</div>}
-          </CardHeader>
-          {description && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{
-                opacity: isExpanded ? 1 : 0,
+              </span>
+            </span>
 
-                height: isExpanded ? "auto" : 0,
-              }}
-              transition={{
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="mt-2 text-xs sm:text-sm px-6"
-            >
-              <ul className="list-disc space-y-1 text-muted-foreground">
-                {getBulletPoints(description).map((point, index) => (
-                  <li key={index}>{point}</li>
-                ))}
-              </ul>
-            </motion.div>
+            {description && (
+              <Plus
+                className={cn(
+                  "mt-1 size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                  open ? "rotate-45 text-primary" : "rotate-0"
+                )}
+              />
+            )}
+          </button>
+
+          {description && open && (
+            <ul className="ml-11 mt-3 space-y-2 border-l border-border pl-4 text-sm leading-relaxed text-muted-foreground">
+              {bullets.map((point, i) => (
+                <li key={i}>{point}</li>
+              ))}
+            </ul>
           )}
         </div>
-      </Card>
-    </Link>
+      </div>
+    </li>
   );
 };

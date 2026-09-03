@@ -13,9 +13,11 @@ export default async function BlogPage() {
   const posts = await getBlogPosts();
 
   return (
-    <section>
+    <section className="container-page min-h-[70vh] py-28">
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h1 className="font-medium text-2xl mb-8 tracking-tighter">blog</h1>
+        <h1 className="mb-8 font-display text-3xl font-bold tracking-tight">
+          Blog
+        </h1>
       </BlurFade>
       {posts
         .sort((a, b) => {
