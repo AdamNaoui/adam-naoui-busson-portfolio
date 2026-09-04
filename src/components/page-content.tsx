@@ -15,64 +15,64 @@ const T = {
     heroCtaContact: "Get in touch",
     heroCtaVentures: "See the ventures",
     currently: "Currently",
+    previously: "Previously",
     aboutTitle: "About",
     venturesKicker: "Founder",
     venturesTitle: "Building for Montréal sports",
     venturesIntro:
-      "Two products, one ecosystem: a pickup app that players open every week, and the league platform that runs the organized side.",
+      "Two live Expo apps on a Supabase backend: a pickup app players open every week, and the platform that runs the organized leagues.",
     workTitle: "Work",
     workIntro:
-      "Six years across payments, e-commerce and IoT. Most of it building and shipping to production.",
+      "Six years across payments, mobile and IoT. Most of it building and shipping to production.",
     education: "Education",
     stackTitle: "Stack",
     stackIntro:
-      "What I reach for. Deepest in TypeScript and Java on the product side, Spring Boot and Postgres on the server, Azure and AWS for delivery.",
+      "What I reach for. Deepest in TypeScript with React Native and Expo. Full-stack background in Angular, Spring Boot and Postgres, plus Supabase for the apps I run now.",
     certifications: "Certifications",
     languages: "Languages",
     contactTitle: "Let's talk",
     contactBody:
-      "I am building Call Next and Next Leagz and I am always up for a conversation about product, payments infrastructure or Montréal sports.",
+      "I am building Call Next and Next Leagz and I am always up for a conversation about mobile, product or payments infrastructure.",
     contactVia: "Find me on",
     catLabels: {
+      mobile: "Mobile",
       languages: "Languages",
       frontend: "Frontend",
-      backend: "Backend",
-      apis: "APIs",
-      databases: "Data",
-      devops: "DevOps & testing",
-      cloud: "Cloud",
+      backend: "Backend & data",
+      cloud: "Cloud & DevOps",
+      testing: "Testing",
     } as Record<string, string>,
   },
   fr: {
     heroCtaContact: "Me contacter",
     heroCtaVentures: "Voir les entreprises",
     currently: "En ce moment",
+    previously: "Auparavant",
     aboutTitle: "Profil",
     venturesKicker: "Fondateur",
     venturesTitle: "Bâtir pour le sport montréalais",
     venturesIntro:
-      "Deux produits, un écosystème : une application de sport libre que les joueurs ouvrent chaque semaine, et la plateforme de ligue qui gère le côté organisé.",
+      "Deux applications Expo en production sur un backend Supabase : une application de sport libre ouverte chaque semaine, et la plateforme qui gère les ligues organisées.",
     workTitle: "Parcours",
     workIntro:
-      "Six ans dans les paiements, le commerce en ligne et l'IoT. Surtout à construire et livrer en production.",
+      "Six ans dans les paiements, le mobile et l'IoT. Surtout à construire et livrer en production.",
     education: "Formation",
     stackTitle: "Stack",
     stackIntro:
-      "Ce que j'utilise. Surtout TypeScript et Java côté produit, Spring Boot et Postgres côté serveur, Azure et AWS pour la livraison.",
+      "Ce que j'utilise. Surtout TypeScript avec React Native et Expo. Expérience full-stack en Angular, Spring Boot et Postgres, plus Supabase pour les applications que je dirige.",
     certifications: "Certifications",
     languages: "Langues",
     contactTitle: "Parlons-en",
     contactBody:
-      "Je construis Call Next et Next Leagz, et je suis toujours partant pour une discussion sur le produit, l'infrastructure de paiement ou le sport à Montréal.",
+      "Je construis Call Next et Next Leagz, et je suis toujours partant pour une discussion sur le mobile, le produit ou l'infrastructure de paiement.",
     contactVia: "Retrouvez-moi sur",
     catLabels: {
+      mobile: "Mobile",
       languages: "Langages",
       frontend: "Frontend",
-      backend: "Backend",
-      apis: "APIs",
-      databases: "Données",
-      devops: "DevOps et tests",
-      cloud: "Cloud",
+      backend: "Backend et données",
+      cloud: "Cloud et DevOps",
+      testing: "Tests",
     } as Record<string, string>,
   },
 };
@@ -153,14 +153,17 @@ export default function PageContent() {
             <h2 className="text-3xl font-semibold tracking-tight">
               {t.aboutTitle}
             </h2>
-            <div className="flex flex-col gap-1">
-              <span className="kicker">{t.currently}</span>
-              <span className="text-sm text-foreground/80">
-                Morgan Stanley
-              </span>
-              <span className="text-sm text-foreground/80">
-                Call Next, Next Leagz
-              </span>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <span className="kicker">{t.currently}</span>
+                <span className="text-sm text-foreground/80">
+                  Call Next, Next Leagz
+                </span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="kicker">{t.previously}</span>
+                <span className="text-sm text-foreground/80">Morgan Stanley</span>
+              </div>
             </div>
           </Reveal>
 
@@ -278,17 +281,8 @@ export default function PageContent() {
                     href={skill.docUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-2 text-sm text-foreground/85 transition-colors hover:text-foreground"
+                    className="link-underline text-sm text-foreground/85 transition-colors hover:text-foreground"
                   >
-                    {skill.iconUrl && (
-                      <Image
-                        src={skill.iconUrl}
-                        alt=""
-                        width={16}
-                        height={16}
-                        className="size-4 object-contain opacity-85 transition-opacity duration-300 group-hover:opacity-100"
-                      />
-                    )}
                     {skill.name}
                   </Link>
                 ))}
