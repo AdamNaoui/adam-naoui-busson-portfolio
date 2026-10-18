@@ -1,24 +1,23 @@
-import { SiteNav } from "@/components/site-nav";
-import { SiteFooter } from "@/components/site-footer";
-import { ThemeProvider } from "@/components/theme-provider";
+import { NfNav } from "@/components/nf/nav";
+import { NfFooter } from "@/components/nf/footer";
+import { ProfileProvider } from "@/components/nf/profile-provider";
 import { LocaleProvider } from "@/components/locale-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Space_Grotesk, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Bebas_Neue, Figtree, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const bebas = Bebas_Neue({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-bebas",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: "400",
 });
 
-const hanken = Hanken_Grotesk({
+const figtree = Figtree({
   subsets: ["latin"],
-  variable: "--font-hanken",
+  variable: "--font-figtree",
   display: "swap",
 });
 
@@ -70,29 +69,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={cn(
-          "grain min-h-screen bg-background font-sans antialiased",
-          spaceGrotesk.variable,
-          hanken.variable,
+          "min-h-screen bg-nf-ground font-sans text-white antialiased",
+          bebas.variable,
+          figtree.variable,
           jetbrainsMono.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-        >
-          <LocaleProvider>
-            <TooltipProvider delayDuration={0}>
-              <div id="nav-sentinel" aria-hidden className="h-2 w-full" />
-              <SiteNav />
-              {children}
-              <SiteFooter />
-            </TooltipProvider>
-          </LocaleProvider>
-        </ThemeProvider>
+        <LocaleProvider>
+          <ProfileProvider>
+            <NfNav />
+            {children}
+            <NfFooter />
+          </ProfileProvider>
+        </LocaleProvider>
       </body>
     </html>
   );

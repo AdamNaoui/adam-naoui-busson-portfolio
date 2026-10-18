@@ -1,5 +1,5 @@
-import PageContent from "@/components/page-content";
+import { NfHome } from "@/components/nf/home";
 
 export default function Page() {
-  return <PageContent />;
+  return <NfHome />;
 }

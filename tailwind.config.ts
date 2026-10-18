@@ -34,6 +34,12 @@ const config = {
       },
 
       colors: {
+        nf: {
+          ground: "#141414",
+          red: "#e50914",
+          grey: "#b3b3b3",
+          green: "#46d369",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -93,7 +99,7 @@ const config = {
       },
       fontFamily: {
         sans: [
-          "var(--font-hanken)",
+          "var(--font-figtree)",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
@@ -104,8 +110,8 @@ const config = {
           "sans-serif",
         ],
         display: [
-          "var(--font-space-grotesk)",
-          "var(--font-hanken)",
+          "var(--font-bebas)",
+          "var(--font-figtree)",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
