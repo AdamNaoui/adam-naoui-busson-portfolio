@@ -142,7 +142,7 @@ export const DATA = {
     {
       name: "Traveling2Gather",
       role: { en: "Founder & Engineer", fr: "Fondateur et ingénieur" },
-      href: "https://traveling2gather-wheat.vercel.app/",
+      href: "https://traveling2gather.com/",
       appStoreUrl: "",
       logoUrl: "",
       shot: "/assets/posters/traveling2gather.jpg",
